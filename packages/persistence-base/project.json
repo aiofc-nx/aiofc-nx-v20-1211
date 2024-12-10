@@ -1,0 +1,33 @@
+{
+  "name": "persistence-base",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/persistence-base/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/persistence-base",
+        "tsConfig": "packages/persistence-base/tsconfig.lib.json",
+        "packageJson": "packages/persistence-base/package.json",
+        "main": "packages/persistence-base/src/index.ts",
+        "assets": ["packages/persistence-base/*.md"]
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    }
+  }
+}
