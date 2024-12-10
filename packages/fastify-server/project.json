@@ -1,0 +1,33 @@
+{
+  "name": "fastify-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/fastify-server/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/fastify-server",
+        "tsConfig": "packages/fastify-server/tsconfig.lib.json",
+        "packageJson": "packages/fastify-server/package.json",
+        "main": "packages/fastify-server/src/index.ts",
+        "assets": ["packages/fastify-server/*.md"]
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    }
+  }
+}
