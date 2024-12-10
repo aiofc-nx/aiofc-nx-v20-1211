@@ -1,0 +1,1 @@
+这个抽象类就是libs/typeorm/src/lib/entity/entity-helper.ts的EntityHelper
