@@ -1,0 +1,33 @@
+{
+  "name": "nestjs-cls",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/nestjs-cls/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/nestjs-cls",
+        "tsConfig": "packages/nestjs-cls/tsconfig.lib.json",
+        "packageJson": "packages/nestjs-cls/package.json",
+        "main": "packages/nestjs-cls/src/index.ts",
+        "assets": ["packages/nestjs-cls/*.md"]
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    }
+  }
+}
