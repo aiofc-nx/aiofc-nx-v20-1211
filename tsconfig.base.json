@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "importHelpers": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "build",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "lib": ["ES2022", "DOM"],
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "rootDir": ".",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "skipDefaultLibCheck": true,
+    "paths": {
+      "@aiofc/auth": ["packages/auth/src/index.ts"],
+      "@aiofc/common-types": ["packages/common-types/src/index.ts"],
+      "@aiofc/config": ["packages/config/src/index.ts"],
+      "@aiofc/drizzle-core": ["packages/drizzle-core/src/index.ts"],
+      "@aiofc/engineer": ["packages/engineer/src/index.ts"],
+      "@aiofc/exceptions": ["packages/exceptions/src/index.ts"],
+      "@aiofc/fastify-server": ["packages/fastify-server/src/index.ts"],
+      "@aiofc/i18n": ["packages/i18n/src/index.ts"],
+      "@aiofc/logger": ["packages/logger/src/index.ts"],
+      "@aiofc/nestjs-cls": ["packages/nestjs-cls/src/index.ts"],
+      "@aiofc/nestjs-typeorm": ["packages/nestjs-typeorm/src/index.ts"],
+      "@aiofc/node-postgres": ["packages/node-postgres/src/index.ts"],
+      "@aiofc/persistence-base": ["packages/persistence-base/src/index.ts"],
+      "@aiofc/postgres-js": ["packages/postgres-js/src/index.ts"],
+      "@aiofc/service-base": ["packages/service-base/src/index.ts"],
+      "@aiofc/swagger-utils": ["packages/swagger-utils/src/index.ts"],
+      "@aiofc/typeorm": ["packages/typeorm/src/index.ts"],
+      "@aiofc/utils": ["packages/utils/src/index.ts"],
+      "@aiofc/validation": ["packages/validation/src/index.ts"]
+    }
+  }
+}

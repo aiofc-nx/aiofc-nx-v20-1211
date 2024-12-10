@@ -1,0 +1,43 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Nx Debug Nest Framework",
+      "runtimeExecutable": "pnpm", // npm pnpm yarn nx
+      "runtimeArgs": [
+        "nx",
+        "run",
+        "demo:serve", // 这是一个自定义的脚本，用来启动 Nest.js 应用程序
+        // "--", //这是一个分隔符，表示后面的参数是传递给debug的，而不是给nx的
+        // "--inspect-brk" // 这个参数告诉Node.js调试器启用调试模式，会使 Node.js 在启动时立即暂停。这允许你在应用程序的初始化阶段设置断点，
+      ],
+      "autoAttachChildProcesses": true,
+      "restart": true,
+      "sourceMaps": true,
+      "stopOnEntry": false,
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/apps/demo" // 添加此行
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "2Nx Debug Nest Framework",
+      "runtimeExecutable": "pnpm", // npm pnpm yarn nx
+      "runtimeArgs": [
+        "nx",
+        "run",
+        "typeorm-demo:serve", // 这是一个自定义的脚本，用来启动 Nest.js 应用程序
+        // "--", //这是一个分隔符，表示后面的参数是传递给debug的，而不是给nx的
+        // "--inspect-brk" // 这个参数告诉Node.js调试器启用调试模式，会使 Node.js 在启动时立即暂停。这允许你在应用程序的初始化阶段设置断点，
+      ],
+      "autoAttachChildProcesses": true,
+      "restart": true,
+      "sourceMaps": true,
+      "stopOnEntry": false,
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/examples/typeorm-demo" // 添加此行
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "cSpell.words": [
+    "aiofc",
+    "aiokit",
+    "Buildable",
+    "commitlint",
+    "Configer",
+    "Datasource",
+    "devkit",
+    "Fastify",
+    "frompairs",
+    "iterare",
+    "kafkajs",
+    "Kamil",
+    "mergician",
+    "Middie",
+    "Mysliwiec",
+    "neondatabase",
+    "opencollective",
+    "pgadmin",
+    "pgadminer",
+    "pino",
+    "possibilty",
+    "resoures",
+    "softkit",
+    "typecheck",
+    "webp",
+    "websockets"
+  ],
+  "eslint.validate": ["json"],
+  "nxConsole.nxWorkspacePath": ""
+}

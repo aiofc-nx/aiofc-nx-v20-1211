@@ -1,0 +1,26 @@
+{
+  "name": "@aiofc-nx-v20-1211/source",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "sherif:ws-fix": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm dlx sherif@latest --fix"
+      }
+    },
+    "sherif:ws": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "sherif:ws"
+      }
+    },
+    "local-registry": {
+      "executor": "@nx/js:verdaccio",
+      "options": {
+        "port": 4873,
+        "config": ".verdaccio/config.yml",
+        "storage": "tmp/local-registry/storage"
+      }
+    }
+  }
+}
