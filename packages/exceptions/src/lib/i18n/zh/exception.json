@@ -1,0 +1,42 @@
+{
+  "SERVICE_UNAVAILABLE": {
+    "TITLE": "暂停服务",
+    "GENERAL_DETAIL": "该服务目前不可用。我们意识到了这个问题，并正在努力尽快解决。"
+  },
+  "NOT_FOUND": {
+    "TITLE": "未找到",
+    "GENERAL_DETAIL": "无法找到相应的对象。它不再存在或您无权访问它。",
+    "MISSING_CONFIGURATION_FOR_FEATURE_DETAIL": "您尝试使用的 {featureName} 功能未配置。请联系您的管理员。如果您是管理员，请先配置 {featureName}。",
+    "OBJECT_NOT_FOUND_DETAIL": "它不再存在或您无权访问它。"
+  },
+  "BAD_REQUEST": {
+    "TITLE": "请求错误",
+    "GENERAL_DETAIL": "您发送的请求无效。请检查您的请求并重试。"
+  },
+  "CONFLICT": {
+    "TITLE": "冲突错误",
+    "OPTIMISTIC_LOCK": "无法保存 {entityName} 的更改。它已被另一用户更改。",
+    "ENTITY_ALREADY_EXISTS": "无法保存 {entityName} 的更改。此数据已被另一用户创建。",
+    "CAN_NOT_CREATE_ENTITY": "无法使用 {fieldName}: {fieldValue} 创建 {entityName}。它已经存在。"
+  },
+
+  "INTERNAL_ERROR": {
+    "TITLE": "内部服务器错误",
+    "GENERAL_DETAIL": "在处理您的请求时发生错误。除非您想联系支持，否则您不需要联系支持。我们已经在处理这个问题，并将与您联系以解释此错误。"
+  },
+
+  "FORBIDDEN": {
+    "TITLE": "访问被拒绝",
+    "GENERAL_DETAIL": "您无权访问此资源。请联系您的管理员。如果您是管理员，请检查您的权限。"
+  },
+
+  "UNAUTHORIZED": {
+    "TITLE": "未经授权",
+    "GENERAL_DETAIL": "抱歉，您无权继续执行此操作。"
+  },
+
+  "UNPROCESSABLE_ENTITY": {
+    "TITLE": "无法处理实体",
+    "GENERAL_DETAIL": "由于数据无效或不完整，服务器无法处理请求。请检查您的请求并重试。"
+  }
+}
