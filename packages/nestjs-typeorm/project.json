@@ -1,0 +1,33 @@
+{
+  "name": "nestjs-typeorm",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/nestjs-typeorm/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/nestjs-typeorm",
+        "tsConfig": "packages/nestjs-typeorm/tsconfig.lib.json",
+        "packageJson": "packages/nestjs-typeorm/package.json",
+        "main": "packages/nestjs-typeorm/src/index.ts",
+        "assets": ["packages/nestjs-typeorm/*.md"]
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    }
+  }
+}
