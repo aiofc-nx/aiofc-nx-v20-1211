@@ -1,0 +1,21 @@
+{
+  "name": "@aiofc/auth",
+  "version": "0.0.1",
+  "dependencies": {
+    "@aiofc/exceptions": "workspace:*",
+    "@aiofc/persistence-base": "workspace:*",
+    "@nestjs/common": "^10.4.8",
+    "@nestjs/core": "^10.4.8",
+    "@nestjs/jwt": "^10.2.0",
+    "@nestjs/passport": "^10.0.3",
+    "class-validator": "^0.14.1",
+    "fastify": "4.28.1",
+    "passport-jwt": "^4.0.1",
+    "rxjs": "^7.8.0",
+    "tslib": "^2.3.0",
+    "@aiofc/nestjs-cls": "workspace:*"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts"
+}
