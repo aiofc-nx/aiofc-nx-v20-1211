@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"],
+    "target": "es2021",
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src/**/*.ts"],
+  "references": [
+    { "path": "../nestjs-cls/tsconfig.lib.json" },
+    { "path": "../persistence-base/tsconfig.lib.json" },
+    { "path": "../validation/tsconfig.lib.json" },
+    { "path": "../i18n/tsconfig.lib.json" },
+    { "path": "../exceptions/tsconfig.lib.json" },
+    { "path": "../common-types/tsconfig.lib.json" }
+  ]
+}
