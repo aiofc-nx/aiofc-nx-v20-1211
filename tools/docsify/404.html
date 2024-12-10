@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Single Page Apps for GitHub Pages</title>
+    <script type="text/javascript">
+      //GitHub Pages 的单页应用程序
+      //https://github.com/rafrex/spa-github-pages
+      //版权所有 (c) 2016 Rafael Pedicini，根据 MIT 许可证获得许可
+      //----------------------------------------------------------------------
+      //该脚本获取当前 url 并转换路径和查询
+      //将字符串转换为查询字符串，然后重定向浏览器
+      //到只有查询字符串和哈希片段的新 url，
+      //例如http://www.foo.tld/one/two?a=b&c=d#qwe，变成
+      //http://www.foo.tld/?p=/one/two&q=a=b~and~c=d#qwe
+      //注意：这个 404.html 文件必须至少有 512 字节才能工作
+      //使用 Internet Explorer（当前> 512 字节）
+      //如果您正在创建项目页面站点并且不使用自定义域，
+      //然后将segmentCount设置为1（企业用户可能需要将其设置为> 1）。
+      //这样代码只会替换路径的route部分，而不是
+      //应用程序所在的真实目录，例如：
+      //https://username.github.io/repo-name/one/two?a=b&c=d#qwe 变为
+      //https://username.github.io/repo-name/?p=/one/two&q=a=b~and~c=d#qwe
+      //否则，将segmentCount保留为0。
+      var segmentCount = 0;
+      var l = window.location;
+      l.replace(
+        l.protocol +
+          '//' +
+          l.hostname +
+          (l.port ? ':' + l.port : '') +
+          l.pathname
+            .split('/')
+            .slice(0, 1 + segmentCount)
+            .join('/') +
+          '/?p=/' +
+          l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
+          (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>

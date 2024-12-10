@@ -1,0 +1,35 @@
+{
+  "name": "aionx-docs",
+  "version": "1.0.0",
+  "description": "> AIONX 是一个企业级的项目框架",
+  "main": "index.js",
+  "scripts": {
+    "start": "docsify start ./ --config ssr.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arligle/aionx-v20rc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arligle/aionx-v20rc/issues"
+  },
+  "homepage": "https://github.com/nestcn/docs#readme",
+  "files": [
+    "./"
+  ],
+  "docsify": {
+    "template": "./ssr.html",
+    "config": {
+      "basePath": "https://docs.nestjs.cn/",
+      "loadSidebar": true,
+      "loadNavbar": true,
+      "coverpage": true,
+      "name": "AIONX 中文文档"
+    }
+  },
+  "devDependencies": {
+    "docsify-cli": "4.4.4"
+  }
+}
