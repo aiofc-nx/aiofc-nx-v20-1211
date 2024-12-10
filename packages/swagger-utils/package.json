@@ -1,0 +1,14 @@
+{
+  "name": "@aiofc/swagger-utils",
+  "version": "0.0.1",
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "class-validator": "^0.14.1",
+    "@aiofc/validation": "workspace:*",
+    "@nestjs/swagger": "^8.1.0",
+    "@nestjs/platform-fastify": "^10.4.8"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts"
+}
