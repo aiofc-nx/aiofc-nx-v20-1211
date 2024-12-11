@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "files": [],
+  "include": [],
+  "references": [
+    { "path": "../../packages/service-base" },
+    { "path": "../../packages/utils" },
+    { "path": "../../packages/fastify-server" },
+    { "path": "../../packages/typeorm" },
+    { "path": "../../packages/nestjs-typeorm" },
+    { "path": "../../packages/logger" },
+    { "path": "../../packages/validation" },
+    { "path": "../../packages/common-types" },
+    { "path": "../../packages/persistence-base" },
+    { "path": "../../packages/exceptions" },
+    { "path": "../../packages/auth" },
+    { "path": "../../packages/i18n" },
+    { "path": "../../packages/config" },
+    { "path": "./tsconfig.app.json" }
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "esModuleInterop": true
+  }
+}
