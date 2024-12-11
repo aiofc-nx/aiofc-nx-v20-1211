@@ -15,6 +15,7 @@
     { "path": "./packages/typeorm" },
     { "path": "./packages/service-base" },
     { "path": "./packages/auth" },
-    { "path": "./packages/nestjs-typeorm" }
+    { "path": "./packages/nestjs-typeorm" },
+    { "path": "./examples/auth-demo" }
   ]
 }
