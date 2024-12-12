@@ -94,6 +94,7 @@
     "@aiofc/typeorm": "workspace:*",
     "@aiofc/utils": "workspace:*",
     "@aiofc/validation": "workspace:*",
+    "@aiofc/entities": "workspace:*",
     "@faker-js/faker": "^9.2.0",
     "@fastify/helmet": "^11.0.0",
     "@fastify/static": "^7.0.4",

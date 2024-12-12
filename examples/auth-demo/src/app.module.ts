@@ -22,7 +22,15 @@ import { join } from 'path';
 import { Logger, loggerModuleForRootAsync } from '@aiofc/logger';
 import { FastifyRequest } from 'fastify';
 import { TypeOrmModule, typeOrmModuleConfig } from '@aiofc/nestjs-typeorm';
-import * as Entities from '@aiofc/entities';
+// import {
+//   User,
+//   Role,
+//   Tenant,
+//   TenantUser,
+//   TenantRole,
+//   TenantPermission,
+//   Permission,
+// } as Entities from '@aiofc/entities';
 import * as Controllers from './controllers';
 import * as Repositories from './repositories';
 import * as Services from './services';
@@ -35,6 +43,18 @@ import { AuthController } from './controllers/auth.controller';
 import { RefreshTokenAuthController } from './controllers/refresh-token-auth.controller';
 import { RolesController } from './controllers/roles.controller';
 import { JwtService } from '@nestjs/jwt';
+// import {
+//   Article,
+//   ExternalApproval,
+//   Permission,
+//   PermissionCategory,
+//   SAMLConfiguration,
+//   Tenant,
+//   UserProfile,
+//   UserRole,
+//   UserTenantAccount,
+// } from '@aiofc/entities';
+import Entities from '@aiofc/entities';
 
 @Module({
   imports: [
@@ -72,7 +92,18 @@ import { JwtService } from '@nestjs/jwt';
 
     typeOrmModuleConfig(), // 全局
     // 是否需要讲这些实体与数据库同步需要再配置文件.env.yaml中配置：synchronize: true
-    TypeOrmModule.forFeature(Object.values(Entities)), // 局部
+    // TypeOrmModule.forFeature([
+    //   Article,
+    //   Permission,
+    //   PermissionCategory,
+    //   UserRole,
+    //   Tenant,
+    //   SAMLConfiguration,
+    //   UserProfile,
+    //   ExternalApproval,
+    //   UserTenantAccount,
+    // ]),
+    TypeOrmModule.forFeature(Object.values(Entities)),
   ],
 
   controllers: [
