@@ -11,9 +11,10 @@
   },
   "include": ["src/**/*.ts", "src/**/*.json"],
   "references": [
-    { "path": "../../packages/utils/tsconfig.lib.json" },
     { "path": "../../packages/swagger-utils/tsconfig.lib.json" },
     { "path": "../../packages/fastify-server/tsconfig.lib.json" },
+    { "path": "../../packages/service-base/tsconfig.lib.json" },
+    { "path": "../../packages/utils/tsconfig.lib.json" },
     { "path": "../../packages/auth/tsconfig.lib.json" },
     { "path": "../../packages/persistence-base/tsconfig.lib.json" },
     { "path": "../../packages/common-types/tsconfig.lib.json" },

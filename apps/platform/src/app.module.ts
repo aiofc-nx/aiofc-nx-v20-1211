@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app/controllers/app.controller';
 import { AppService } from './app/services/app.service';
 import { ClsModule } from '@aiofc/nestjs-cls';
 import { FastifyRequest } from 'fastify';
@@ -16,6 +15,12 @@ import {
 import { join } from 'path';
 import { TypeOrmModule, typeOrmModuleConfig } from '@aiofc/nestjs-typeorm';
 import entities from '@aiofc/entities';
+import { AuthController } from './app/controllers/auth/auth.controller';
+import { AbstractSignupService } from './app/services/auth/signup/abstract-signup.service';
+import { TenantSignupService } from './app/services/auth/signup/tenant-signup.service';
+import AbstractAuthUserService from './app/services/auth/abstract-auth-user.service';
+import AuthUserService from './app/services/users/auth-user.service';
+import { AppController } from './app/controllers/app.controller';
 @Module({
   imports: [
     ClsModule.forRoot({
@@ -53,7 +58,17 @@ import entities from '@aiofc/entities';
     // 是否需要讲这些实体与数据库同步需要再配置文件.env.yaml中配置：synchronize: true
     TypeOrmModule.forFeature(Object.values(entities)), // 局部
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, AuthController],
+  providers: [
+    AppService,
+    {
+      provide: AbstractSignupService,
+      useClass: TenantSignupService,
+    },
+    {
+      provide: AbstractAuthUserService,
+      useClass: AuthUserService,
+    },
+  ],
 })
 export class AppModule {}

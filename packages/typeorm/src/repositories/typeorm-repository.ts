@@ -17,15 +17,14 @@ import {
 import { ObjectType } from 'typeorm/common/ObjectType';
 import { BaseRepository, LimitOptions } from '@aiofc/persistence-base';
 import { TypeormBaseEntity } from '../entity/typeorm-base-entity';
+
 /**
+ * 具有类似于TypeORM的Repository功能的类，它实现了BaseRepository中定义的所有方法。
+ * https://www.typeorm.net/working-with-repository
+ *
  * @description 这是抽象层BaseRepository类的具体实现，尽管它仍然是一个抽象类，但它实现了BaseRepository中定义的所有方法。
  * 我们在这个类中引入了TypeORM的Repository类，这个类是TypeORM中的一个重要类，它提供了对实体的基本操作能力。
  * 具体见：protected typeormRepository: Repository<ENTITY>;
- */
-
-
-/**
- * TypeORM仓储类
  *
  * 该类通过继承和实现来组合功能:
  * 1. 继承BaseRepository:
@@ -43,7 +42,7 @@ export abstract class TypeormRepository<
   ENTITY extends TypeormBaseEntity,
   ID extends keyof ENTITY,
   FIELDS_REQUIRED_FOR_UPDATE extends keyof ENTITY = ID,
-  AUTO_GENERATED_FIELDS extends keyof ENTITY = ID | keyof TypeormBaseEntity,
+  AUTO_GENERATED_FIELDS extends keyof ENTITY = ID | keyof TypeormBaseEntity
 > extends BaseRepository<
   ENTITY,
   ID,
@@ -58,6 +57,7 @@ export abstract class TypeormRepository<
 
   /**
    * TypeORM的Repository实例,用于执行具体的数据库操作
+   * 在构造函数中通过dataSource.getRepository(entityTarget)来创建
    */
   protected typeormRepository: Repository<ENTITY>;
 
@@ -70,7 +70,7 @@ export abstract class TypeormRepository<
   protected constructor(
     protected entityTarget: ObjectType<ENTITY>,
     protected dataSource: DataSource,
-    protected idFieldName: ID,
+    protected idFieldName: ID
   ) {
     super();
     this.typeormRepository = dataSource.getRepository(entityTarget);
@@ -96,7 +96,7 @@ export abstract class TypeormRepository<
    * @returns 返回记录数量的Promise
    */
   override count(
-    query: FindOptionsWhere<ENTITY> | Array<FindOptionsWhere<ENTITY>> = {},
+    query: FindOptionsWhere<ENTITY> | Array<FindOptionsWhere<ENTITY>> = {}
   ): Promise<number> {
     return this.typeormRepository.countBy(this.presetWhereOptions(query));
   }
@@ -129,7 +129,7 @@ export abstract class TypeormRepository<
    */
   override findAllPaginated(
     query: PaginateQuery,
-    config: PaginateConfig<ENTITY>,
+    config: PaginateConfig<ENTITY>
   ): Promise<Paginated<ENTITY>> {
     const queryBuilder = this.typeormRepository.createQueryBuilder();
 
@@ -178,7 +178,7 @@ export abstract class TypeormRepository<
   findById(ids: Array<ENTITY[ID]>): Promise<Array<ENTITY>>;
 
   override findById(
-    ids: ENTITY[ID] | Array<ENTITY[ID]>,
+    ids: ENTITY[ID] | Array<ENTITY[ID]>
   ): Promise<ENTITY | undefined | Array<ENTITY>> {
     const isArray = Array.isArray(ids);
     const where = this.presetWhereOptions({
@@ -220,7 +220,7 @@ export abstract class TypeormRepository<
    * @returns 返回查询到的实体或 undefined
    */
   override findOne(
-    where: FindOptionsWhere<ENTITY> | Array<FindOptionsWhere<ENTITY>>,
+    where: FindOptionsWhere<ENTITY> | Array<FindOptionsWhere<ENTITY>>
   ): Promise<ENTITY | undefined> {
     return this.typeormRepository
       .findOneBy(this.presetWhereOptions(where))
@@ -267,12 +267,12 @@ export abstract class TypeormRepository<
   override async delete(id: ENTITY[ID] | Array<ENTITY[ID]>): Promise<boolean> {
     // 根据输入是否为数组构造不同的查询条件
     const condition = Array.isArray(id)
-      ? { [this.idFieldName]: In(id) }  // 使用In操作符查询多个ID
-      : { [this.idFieldName]: id };     // 直接匹配单个ID
+      ? { [this.idFieldName]: In(id) } // 使用In操作符查询多个ID
+      : { [this.idFieldName]: id }; // 直接匹配单个ID
 
     // 预处理查询条件,添加额外的查询约束
     const where = this.presetWhereOptions(
-      condition as FindOptionsWhere<ENTITY>,
+      condition as FindOptionsWhere<ENTITY>
     ) as FindOptionsWhere<ENTITY>;
 
     // 执行删除操作
@@ -280,8 +280,8 @@ export abstract class TypeormRepository<
 
     // 根据输入类型返回不同的成功判断
     return Array.isArray(id)
-      ? deleteResult.affected === id.length  // 批量删除需要全部成功
-      : (deleteResult.affected ?? 0) > 0;    // 单个删除只要影响行数>0
+      ? deleteResult.affected === id.length // 批量删除需要全部成功
+      : (deleteResult.affected ?? 0) > 0; // 单个删除只要影响行数>0
   }
 
   /**
@@ -314,7 +314,7 @@ export abstract class TypeormRepository<
     limitOptions: LimitOptions = {
       limit: 100,
       offset: 0,
-    },
+    }
   ): Promise<ENTITY[]> {
     return this.typeormRepository.find({
       where: this.presetWhereOptions(query || {}),
@@ -352,11 +352,11 @@ export abstract class TypeormRepository<
    */
   override async updateByQuery(
     fields: Partial<Omit<ENTITY, AUTO_GENERATED_FIELDS>>,
-    query: FindOptionsWhere<ENTITY>,
+    query: FindOptionsWhere<ENTITY>
   ): Promise<number> {
     const result = await this.typeormRepository.update(
       this.presetWhereOptions(query) as FindOptionsWhere<ENTITY>,
-      fields as unknown as QueryDeepPartialEntity<ENTITY>,
+      fields as unknown as QueryDeepPartialEntity<ENTITY>
     );
 
     return result.affected ?? 0;
@@ -390,14 +390,14 @@ export abstract class TypeormRepository<
    */
   updatePartial(
     entity: Partial<Omit<ENTITY, AUTO_GENERATED_FIELDS>> &
-      Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>,
+      Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
   ): Promise<Partial<ENTITY>>;
 
   updatePartial(
     entities: Array<
       Partial<Omit<ENTITY, AUTO_GENERATED_FIELDS>> &
         Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
-    >,
+    >
   ): Promise<Array<Partial<ENTITY>>>;
 
   override async updatePartial(
@@ -407,7 +407,7 @@ export abstract class TypeormRepository<
       | Array<
           Partial<Omit<ENTITY, AUTO_GENERATED_FIELDS>> &
             Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
-        >,
+        >
   ): Promise<Partial<ENTITY> | Array<Partial<ENTITY>>> {
     return this.save(entities);
   }
@@ -445,7 +445,7 @@ export abstract class TypeormRepository<
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS | FIELDS_REQUIRED_FOR_UPDATE> &
           Partial<Never<Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>>>)
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS | FIELDS_REQUIRED_FOR_UPDATE> &
-          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>),
+          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>)
   ): Promise<ENTITY>;
 
   upsert(
@@ -454,7 +454,7 @@ export abstract class TypeormRepository<
           Partial<Never<Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>>>)
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS | FIELDS_REQUIRED_FOR_UPDATE> &
           Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>)
-    >,
+    >
   ): Promise<ENTITY[]>;
 
   override async upsert(
@@ -468,7 +468,7 @@ export abstract class TypeormRepository<
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS | FIELDS_REQUIRED_FOR_UPDATE> &
           Partial<Never<Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>>>)
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS | FIELDS_REQUIRED_FOR_UPDATE> &
-          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>),
+          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>)
   ): Promise<ENTITY | ENTITY[]> {
     return this.save(entities);
   }
@@ -500,19 +500,19 @@ export abstract class TypeormRepository<
    * @returns 返回创建的实体或实体数组的Promise
    */
   create(
-    entity: Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>,
+    entity: Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>
   ): Promise<ENTITY>;
 
   create(
     entities: Array<
       Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>
-    >,
+    >
   ): Promise<Array<ENTITY>>;
 
   override create(
     entities:
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>)
-      | Array<Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>>,
+      | Array<Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>>
   ): Promise<ENTITY | ENTITY[]> {
     return this.save(entities);
   }
@@ -539,14 +539,14 @@ export abstract class TypeormRepository<
    */
   update(
     entity: Omit<ENTITY, AUTO_GENERATED_FIELDS> &
-      Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>,
+      Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
   ): Promise<ENTITY>;
 
   update(
     entities: Array<
       Omit<ENTITY, AUTO_GENERATED_FIELDS> &
         Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
-    >,
+    >
   ): Promise<Array<ENTITY>>;
 
   override update(
@@ -556,7 +556,7 @@ export abstract class TypeormRepository<
             Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
         >
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS> &
-          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>),
+          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>)
   ): Promise<ENTITY | ENTITY[]> {
     return this.save(entity);
   }
@@ -589,7 +589,7 @@ export abstract class TypeormRepository<
 
     // 先创建实体实例,再保存到数据库
     const saved = await this.typeormRepository.save(
-      this.typeormRepository.create(toSave as DeepPartial<ENTITY>[]),
+      this.typeormRepository.create(toSave as DeepPartial<ENTITY>[])
     );
 
     // 根据输入类型返回对应格式
