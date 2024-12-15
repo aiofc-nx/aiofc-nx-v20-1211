@@ -13,11 +13,11 @@
   "files": [],
   "include": [],
   "references": [
+    { "path": "../persistence-base" },
     { "path": "../validation" },
     { "path": "../i18n" },
     { "path": "../exceptions" },
     { "path": "../common-types" },
-    { "path": "../persistence-base" },
     { "path": "./tsconfig.lib.json" }
   ]
 }

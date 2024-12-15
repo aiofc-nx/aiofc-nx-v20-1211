@@ -17,6 +17,7 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "skipDefaultLibCheck": true,
+    "declaration": true,
     "paths": {
       "@aiofc/auth": ["packages/auth/src/index.ts"],
       "@aiofc/common-types": ["packages/common-types/src/index.ts"],

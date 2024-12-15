@@ -19,8 +19,9 @@ export class Article extends TrackedTypeormBaseEntity {
   @IsStringCombinedLocalized({ minLength: 1, maxLength: 256 })
   title!: string;
 
-  @Column()
-  author: string | undefined;
+  @Column({ type: 'varchar', nullable: true })
+  @Expose()
+  author?: string;
 
   @Column({ type: String, length: 1024, nullable: false })
   @Expose()

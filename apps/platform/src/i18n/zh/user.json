@@ -1,0 +1,6 @@
+{
+  "SUCCESSFULLY_LOGGED_IN": "您已成功登录。",
+  "SUCCESSFULLY_APPROVED_EMAIL": "电子邮件已成功验证。",
+  "USER_NOT_ACTIVE": "抱歉，您的账户似乎已被停用。如果您认为有任何问题，请联系支持。",
+  "FINISHED_REGISTRATION": "感谢您的注册。如果该电子邮件地址在我们的数据库中不存在，您将收到一封电子邮件，其中包含进一步的注册流程。"
+}

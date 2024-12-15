@@ -2,21 +2,21 @@ import { PaginateConfig, Paginated, PaginateQuery } from 'nestjs-paginate';
 import { Never } from '@aiofc/common-types';
 import { LimitOptions } from './vo/limit-options.interface';
 import { IBaseEntity } from '../entity/base-entity-interface';
-/**
- * @description 以抽象类的形式描述了一个通用的存储库形态，定义了一些通用的方法，如：
- * upsert、create、update、updatePartial、updateByQuery、
- * count、findAll、findAllPaginated、findById、findOne、delete、
- * entityName、presetWhereOptions
- * 这些方法的具体实现由继承的类来实现
- */
 
 /**
  * 基础仓储抽象类
+ * @description 以抽象类的形式描述了一个通用的Repository的形态，定义了一些通用的方法，如：
+ * upsert、create、update、updatePartial、updateByQuery、
+ * count、findAll、findAllPaginated、findById、findOne、delete、
+ * entityName、presetWhereOptions
+ * 这个类并不是直接继承 typeorm 的 Repository 类（https://www.typeorm.net/working-with-repository）
+ * 而是一个自定义的类，但是方法命名上和 typeorm 的 Repository 类的方法尽量一致
+ * 这些方法的具体实现由继承它的 TypeormRepository 类来实现
  *
  * 泛型参数说明:
- * - ENTITY: 实体类型,必须继承自IBaseEntity
+ * - ENTITY: 实体类型,必须满足IBaseEntity接口的定义，尽管IBaseEntity只是一个空接口
  * - ID: 实体ID字段的类型,必须是ENTITY的键
- * - FIND_OPTIONS: 查询选项类型
+ * - FIND_OPTIONS: 查询选项类型 https://www.typeorm.net/find-options
  * - FIELDS_REQUIRED_FOR_UPDATE: 更新时必需的字段,默认为ID
  * - AUTO_GENERATED_FIELDS: 自动生成的字段,默认为基础实体字段和ID
  */
@@ -25,7 +25,7 @@ export abstract class BaseRepository<
   ID extends keyof ENTITY,
   FIND_OPTIONS,
   FIELDS_REQUIRED_FOR_UPDATE extends keyof ENTITY = ID,
-  AUTO_GENERATED_FIELDS extends keyof ENTITY = keyof IBaseEntity | ID,
+  AUTO_GENERATED_FIELDS extends keyof ENTITY = keyof IBaseEntity | ID
 > {
   /**
    * 更新或插入实体
@@ -38,7 +38,7 @@ export abstract class BaseRepository<
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS | FIELDS_REQUIRED_FOR_UPDATE> &
           Partial<Never<Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>>>)
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS | FIELDS_REQUIRED_FOR_UPDATE> &
-          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>),
+          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>)
   ): Promise<ENTITY>;
 
   abstract upsert(
@@ -47,7 +47,7 @@ export abstract class BaseRepository<
           Partial<Never<Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>>>)
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS | FIELDS_REQUIRED_FOR_UPDATE> &
           Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>)
-    >,
+    >
   ): Promise<ENTITY[]>;
 
   /**
@@ -57,13 +57,13 @@ export abstract class BaseRepository<
    * - 自动生成的字段会被排除,ID字段可选
    */
   abstract create(
-    entity: Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>,
+    entity: Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>
   ): Promise<ENTITY>;
 
   abstract create(
     entities: Array<
       Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>
-    >,
+    >
   ): Promise<Array<ENTITY>>;
 
   /**
@@ -74,14 +74,14 @@ export abstract class BaseRepository<
    */
   abstract update(
     entity: Omit<ENTITY, AUTO_GENERATED_FIELDS> &
-      Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>,
+      Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
   ): Promise<ENTITY>;
 
   abstract update(
     entities: Array<
       Omit<ENTITY, AUTO_GENERATED_FIELDS> &
         Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
-    >,
+    >
   ): Promise<Array<ENTITY>>;
 
   /**
@@ -92,14 +92,14 @@ export abstract class BaseRepository<
    */
   abstract updatePartial(
     entity: Partial<Omit<ENTITY, AUTO_GENERATED_FIELDS>> &
-      Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>,
+      Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
   ): Promise<Partial<ENTITY>>;
 
   abstract updatePartial(
     entities: Array<
       Partial<Omit<ENTITY, AUTO_GENERATED_FIELDS>> &
         Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
-    >,
+    >
   ): Promise<Array<Partial<ENTITY>>>;
 
   /**
@@ -110,7 +110,7 @@ export abstract class BaseRepository<
    */
   abstract updateByQuery(
     data: Partial<Omit<ENTITY, AUTO_GENERATED_FIELDS>>,
-    query: FIND_OPTIONS,
+    query: FIND_OPTIONS
   ): Promise<number>;
 
   /**
@@ -126,7 +126,7 @@ export abstract class BaseRepository<
    */
   abstract findAll(
     query?: FIND_OPTIONS,
-    limitOptions?: LimitOptions,
+    limitOptions?: LimitOptions
   ): Promise<ENTITY[]>;
 
   /**
@@ -136,7 +136,7 @@ export abstract class BaseRepository<
    */
   abstract findAllPaginated(
     query: PaginateQuery,
-    config: PaginateConfig<ENTITY>,
+    config: PaginateConfig<ENTITY>
   ): Promise<Paginated<ENTITY>>;
 
   /**

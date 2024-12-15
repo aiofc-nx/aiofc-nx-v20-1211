@@ -1,0 +1,11 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "01_auth_signup",
+  "steps": [
+    {
+      "file": "apps/platform/src/app/controllers/auth/auth.controller.ts",
+      "description": "新用户注册",
+      "line": 37
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "typeorm-crud-demo",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "examples/typeorm-crud-demo/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "typeorm-crud-demo:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "typeorm-crud-demo:build:development"
+        },
+        "production": {
+          "buildTarget": "typeorm-crud-demo:build:production"
+        }
+      }
+    }
+  }
+}

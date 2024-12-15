@@ -8,15 +8,12 @@ import { map } from '@aiofc/validation';
 import { Never } from '@aiofc/common-types';
 import { ObjectNotFoundException } from '@aiofc/exceptions';
 import { BaseRepository, IBaseEntity } from '@aiofc/persistence-base';
-/**
- * @description 以泛型类的形式继承了抽象基础服务类AbstractBaseService，
- * 并实现了具体的方法，这些实现方法都带有TypeORM的事务注解@Transactional()，具有事务处理的能力，
- * 因此，这个类可以应用在TypeORM的实体操作中,因为它已经不是一个抽象类了。
- */
 
 /**
  * 基础实体服务类
- *
+ * @description 以泛型类的形式继承了抽象基础服务类AbstractBaseService，
+ * 并实现了具体的方法，这些实现方法都带有TypeORM的事务注解@Transactional()，具有事务处理的能力，
+ * 因此，这个类可以应用在TypeORM的实体操作中,因为它已经不是一个抽象类了。
  * 泛型参数:
  * - ENTITY: 实体类型,必须继承自IBaseEntity
  * - ID: 实体ID字段类型,必须是ENTITY的键名
@@ -35,7 +32,7 @@ export class BaseEntityService<
     AUTO_GENERATED_FIELDS
   >,
   FIELDS_REQUIRED_FOR_UPDATE extends keyof ENTITY = ID,
-  AUTO_GENERATED_FIELDS extends keyof ENTITY = ID,
+  AUTO_GENERATED_FIELDS extends keyof ENTITY = ID
 > extends BaseService<
   ENTITY,
   ID,
@@ -62,13 +59,13 @@ export class BaseEntityService<
    * - ID字段可选
    */
   create(
-    entity: Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>,
+    entity: Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>
   ): Promise<ENTITY>;
 
   create(
     entities: Array<
       Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>
-    >,
+    >
   ): Promise<Array<ENTITY>>;
 
   /**
@@ -93,7 +90,7 @@ export class BaseEntityService<
   override create(
     entities:
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>)
-      | Array<Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>>,
+      | Array<Omit<ENTITY, AUTO_GENERATED_FIELDS> & Partial<Pick<ENTITY, ID>>>
   ): Promise<ENTITY | ENTITY[]> {
     return Array.isArray(entities)
       ? this.repository.create(entities)
@@ -118,14 +115,14 @@ export class BaseEntityService<
    */
   update(
     entity: Omit<ENTITY, AUTO_GENERATED_FIELDS> &
-      Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>,
+      Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
   ): Promise<ENTITY>;
 
   update(
     entities: Array<
       Omit<ENTITY, AUTO_GENERATED_FIELDS> &
         Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
-    >,
+    >
   ): Promise<Array<ENTITY>>;
 
   /**
@@ -153,7 +150,7 @@ export class BaseEntityService<
             Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
         >
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS> &
-          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>),
+          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>)
   ): Promise<ENTITY | ENTITY[]> {
     return Array.isArray(entity)
       ? this.repository.update(entity)
@@ -185,7 +182,7 @@ export class BaseEntityService<
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS | FIELDS_REQUIRED_FOR_UPDATE> &
           Partial<Never<Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>>>)
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS | FIELDS_REQUIRED_FOR_UPDATE> &
-          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>),
+          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>)
   ): Promise<ENTITY>;
 
   upsert(
@@ -194,7 +191,7 @@ export class BaseEntityService<
           Partial<Never<Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>>>)
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS | FIELDS_REQUIRED_FOR_UPDATE> &
           Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>)
-    >,
+    >
   ): Promise<ENTITY[]>;
 
   /**
@@ -230,7 +227,7 @@ export class BaseEntityService<
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS | FIELDS_REQUIRED_FOR_UPDATE> &
           Partial<Never<Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>>>)
       | (Omit<ENTITY, AUTO_GENERATED_FIELDS | FIELDS_REQUIRED_FOR_UPDATE> &
-          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>),
+          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>)
   ): Promise<ENTITY | ENTITY[]> {
     return Array.isArray(entities)
       ? this.repository.upsert(entities)
@@ -253,14 +250,14 @@ export class BaseEntityService<
    */
   partialUpdate(
     entity: Partial<Omit<ENTITY, AUTO_GENERATED_FIELDS>> &
-      Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>,
+      Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
   ): Promise<Partial<ENTITY>>;
 
   partialUpdate(
     entities: Array<
       Partial<Omit<ENTITY, AUTO_GENERATED_FIELDS>> &
         Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
-    >,
+    >
   ): Promise<Array<Partial<ENTITY>>>;
 
   /**
@@ -291,7 +288,7 @@ export class BaseEntityService<
             Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>
         >
       | (Partial<Omit<ENTITY, AUTO_GENERATED_FIELDS>> &
-          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>),
+          Pick<ENTITY, FIELDS_REQUIRED_FOR_UPDATE>)
   ): Promise<Partial<ENTITY> | Array<Partial<ENTITY>>> {
     return Array.isArray(entities)
       ? this.repository.updatePartial(entities)
@@ -310,7 +307,7 @@ export class BaseEntityService<
   findById(id: ENTITY[ID], throwExceptionIfNotFound: true): Promise<ENTITY>;
   findById(
     id: ENTITY[ID],
-    throwExceptionIfNotFound: false,
+    throwExceptionIfNotFound: false
   ): Promise<ENTITY | undefined>;
   findById(ids: Array<ENTITY[ID]>): Promise<Array<ENTITY>>;
 
@@ -321,7 +318,7 @@ export class BaseEntityService<
   @Transactional()
   override async findById(
     id: Array<ENTITY[ID]> | ENTITY[ID],
-    throwExceptionIfNotFound = true,
+    throwExceptionIfNotFound = true
   ): Promise<undefined | ENTITY | Array<ENTITY>> {
     const ids = Array.isArray(id) ? id : [id];
 
@@ -348,7 +345,7 @@ export class BaseEntityService<
     query: PaginateQuery,
     config: PaginateConfig<ENTITY>,
     clazz?: ClassConstructor<T>,
-    options?: ClassTransformOptions,
+    options?: ClassTransformOptions
   ): Promise<Paginated<T>> {
     const result = await this.repository.findAllPaginated(query, config);
 
