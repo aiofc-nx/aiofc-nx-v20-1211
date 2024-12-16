@@ -1,5 +1,5 @@
 {
-  "name": "@aiofc/typeorm",
+  "name": "@aiofc/typeorm-base",
   "version": "0.0.1",
   "dependencies": {
     "@aiofc/common-types": "workspace:*",

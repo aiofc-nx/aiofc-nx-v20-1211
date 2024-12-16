@@ -1,6 +1,6 @@
 import { JwtTokensPayload } from '@aiofc/auth';
 import { UserProfile } from '@aiofc/entities';
-import { DEFAULT_CREATE_ENTITY_EXCLUDE_LIST } from '@aiofc/typeorm';
+import { DEFAULT_CREATE_ENTITY_EXCLUDE_LIST } from '@aiofc/typeorm-base';
 import {
   IsStringCombinedLocalized,
   MatchesWithProperty,

@@ -1,4 +1,4 @@
-import { TrackedTypeormBaseEntity } from '@aiofc/typeorm';
+import { TrackedTypeormBaseEntity } from '@aiofc/typeorm-base';
 import {
   IsNumberLocalized,
   IsStringCombinedLocalized,

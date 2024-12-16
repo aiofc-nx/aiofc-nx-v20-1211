@@ -1,6 +1,6 @@
 import { UserProfile } from '@aiofc/entities';
 import { InjectDataSource } from '@aiofc/nestjs-typeorm';
-import { TrackedTypeormRepository as BaseRepository } from '@aiofc/typeorm';
+import { TrackedTypeormRepository as BaseRepository } from '@aiofc/typeorm-base';
 import { Injectable } from '@nestjs/common';
 import { DataSource, FindOptionsWhere } from 'typeorm';
 

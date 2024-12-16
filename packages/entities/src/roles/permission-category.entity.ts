@@ -13,7 +13,7 @@ import {
   IsStringCombinedLocalized,
   IsUUIDLocalized,
 } from '@aiofc/validation';
-import { TrackedTypeormBaseEntity } from '@aiofc/typeorm';
+import { TrackedTypeormBaseEntity } from '@aiofc/typeorm-base';
 
 @Entity('permission_categories')
 export class PermissionCategory extends TrackedTypeormBaseEntity {
@@ -42,7 +42,7 @@ export class PermissionCategory extends TrackedTypeormBaseEntity {
   @OneToMany(
     () => Permission,
     (permission) => permission.permissionCategoryId,
-    { eager: false },
+    { eager: false }
   )
   permissions?: Permission[];
 

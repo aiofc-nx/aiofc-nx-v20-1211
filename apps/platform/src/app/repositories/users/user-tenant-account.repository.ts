@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
-import { TenantTrackedTypeormRepository as BaseRepository } from '@aiofc/typeorm';
+import { TenantTrackedTypeormRepository as BaseRepository } from '@aiofc/typeorm-base';
 import { UserTenantAccount } from '@aiofc/entities';
 import { InjectDataSource } from '@aiofc/nestjs-typeorm';
 import { ClsService } from '@aiofc/nestjs-cls';

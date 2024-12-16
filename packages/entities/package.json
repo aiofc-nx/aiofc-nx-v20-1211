@@ -3,12 +3,12 @@
   "version": "0.0.1",
   "dependencies": {
     "tslib": "^2.3.0",
-    "@aiofc/typeorm": "workspace:*",
     "typeorm": "0.3.20",
     "class-transformer": "^0.5.1",
     "@aiofc/validation": "workspace:*",
     "class-validator": "^0.14.1",
-    "@aiofc/persistence-base": "workspace:*"
+    "@aiofc/persistence-base": "workspace:*",
+    "@aiofc/typeorm-base": "workspace:*"
   },
   "type": "commonjs",
   "main": "./src/index.js",

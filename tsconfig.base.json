@@ -36,7 +36,7 @@
       "@aiofc/postgres-js": ["packages/postgres-js/src/index.ts"],
       "@aiofc/service-base": ["packages/service-base/src/index.ts"],
       "@aiofc/swagger-utils": ["packages/swagger-utils/src/index.ts"],
-      "@aiofc/typeorm": ["packages/typeorm/src/index.ts"],
+      "@aiofc/typeorm-base": ["packages/typeorm-base/src/index.ts"],
       "@aiofc/utils": ["packages/utils/src/index.ts"],
       "@aiofc/validation": ["packages/validation/src/index.ts"]
     }

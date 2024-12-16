@@ -19,7 +19,7 @@ import {
   IsUUIDLocalized,
 } from '@aiofc/validation';
 import { IsOptional } from 'class-validator';
-import {  ClsPreset, TrackedTypeormBaseEntity } from '@aiofc/typeorm';
+import { ClsPreset, TrackedTypeormBaseEntity } from '@aiofc/typeorm-base';
 import { TenantClsStore } from '@aiofc/persistence-base';
 
 @Entity('roles')
@@ -70,7 +70,7 @@ export class UserRole extends TrackedTypeormBaseEntity {
   @ClsPreset<TenantClsStore>({
     clsFieldName: 'tenantId',
   })
-  tenantId?: string;  // 注意：这个tenantId不是继承过来的，而是自己定义的
+  tenantId?: string; // 注意：这个tenantId不是继承过来的，而是自己定义的
 
   /**
    * Tenants can have their own roles, but they can also inherit roles from the platform.

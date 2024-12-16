@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Transactional } from 'typeorm-transactional';
 import { BaseEntityService } from '@aiofc/service-base';
 import { UserRepository } from './user.repository';
-import { TrackedTypeormBaseEntity } from '@aiofc/typeorm';
+import { TrackedTypeormBaseEntity } from '@aiofc/typeorm-base';
 import { FindOptionsWhere } from 'typeorm';
 
 @Injectable()

@@ -18,7 +18,7 @@ import {
   PasswordLocalized,
 } from '@aiofc/validation';
 import { Expose } from 'class-transformer';
-import { TrackedTypeormBaseEntity } from '@aiofc/typeorm';
+import { TrackedTypeormBaseEntity } from '@aiofc/typeorm-base';
 
 /**
  * 用户档案实体类

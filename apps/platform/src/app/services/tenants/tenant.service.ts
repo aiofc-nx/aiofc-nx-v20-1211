@@ -4,7 +4,7 @@ import { TenantsRepository } from '../../repositories/tenants/tenants.repository
 import { BaseEntityService } from '@aiofc/service-base';
 import { Tenant, TenantStatus, UserProfile } from '@aiofc/entities';
 import { ConflictEntityCreationException } from '@aiofc/exceptions';
-import { TenantTrackedTypeormBaseEntity } from '@aiofc/typeorm';
+import { TenantTrackedTypeormBaseEntity } from '@aiofc/typeorm-base';
 import { FindOptionsWhere } from 'typeorm';
 
 /**

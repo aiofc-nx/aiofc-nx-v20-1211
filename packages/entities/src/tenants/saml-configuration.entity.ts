@@ -15,7 +15,7 @@ import {
   IsUUIDLocalized,
 } from '@aiofc/validation';
 import { Expose } from 'class-transformer';
-import { TrackedTypeormBaseEntity } from '@aiofc/typeorm';
+import { TrackedTypeormBaseEntity } from '@aiofc/typeorm-base';
 
 /*
 此表与Tenants表关联，需要TenantID字段，因此要继承TenantTrackedTypeormBaseEntity

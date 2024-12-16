@@ -25,7 +25,7 @@ yarn add @aiofc/typeorm
 ### Add default configuration in your root config class
 
 ```typescript
-import { DbConfig } from '@aiofc/typeorm';
+import { DbConfig } from '@aiofc/typeorm-base';
 
 export class RootConfig {
   @Type(() => DbConfig)
@@ -54,7 +54,7 @@ db:
 ### Add setup and entities to your main app module
 
 ```typescript
-import { setupTypeormModule } from '@aiofc/typeorm';
+import { setupTypeormModule } from '@aiofc/typeorm-base';
 import * as Entities from './database/entities';
 
 @Module({

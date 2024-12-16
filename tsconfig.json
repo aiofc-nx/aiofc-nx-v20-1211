@@ -11,7 +11,7 @@
     { "path": "./packages/exceptions" },
     { "path": "./packages/validation" },
     { "path": "./examples/auth-demo" },
-    { "path": "./packages/typeorm" },
+    { "path": "./packages/typeorm-base" },
     { "path": "./packages/config" },
     { "path": "./packages/logger" },
     { "path": "./packages/utils" },

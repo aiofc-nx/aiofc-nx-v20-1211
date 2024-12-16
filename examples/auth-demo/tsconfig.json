@@ -6,7 +6,7 @@
     { "path": "../../packages/service-base" },
     { "path": "../../packages/utils" },
     { "path": "../../packages/fastify-server" },
-    { "path": "../../packages/typeorm" },
+    { "path": "../../packages/typeorm-base" },
     { "path": "../../packages/nestjs-typeorm" },
     { "path": "../../packages/logger" },
     { "path": "../../packages/validation" },
