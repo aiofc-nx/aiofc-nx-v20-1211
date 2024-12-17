@@ -13,11 +13,11 @@ export function i18nModuleForRootAsync(
     fallbacks = {
       'en-*': 'en',
     },
-    fallbackLanguage = 'en', // 如果没有所需语言的翻译，则用作后备的默认语言
+    fallbackLanguage = 'zh', // 如果没有所需语言的翻译，则用作后备的默认语言
   }: {
     fallbacks?: Record<string, string>;
     fallbackLanguage?: string;
-  } = {},
+  } = {}
 ) {
   return I18nModule.forRootAsync({
     imports: undefined,

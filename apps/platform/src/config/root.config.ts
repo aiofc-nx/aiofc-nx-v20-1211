@@ -5,6 +5,7 @@ import { I18Config } from '@aiofc/i18n';
 import { DbConfig } from '@aiofc/nestjs-typeorm';
 import { SwaggerConfig } from '@aiofc/swagger-utils';
 import { SamlConfig } from './saml.config';
+import { AuthConfig } from '@aiofc/auth';
 
 /**
  * 根配置类
@@ -47,6 +48,9 @@ export default class RootConfig {
 
   @ValidateNestedProperty({ classType: LoggerConfig })
   public readonly logger!: LoggerConfig;
+
+  @ValidateNestedProperty({ classType: AuthConfig })
+  public readonly auth!: AuthConfig;
 
   @ValidateNestedProperty({ classType: I18Config })
   public readonly i18!: I18Config;

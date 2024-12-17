@@ -1,14 +1,18 @@
-import { Tenant } from '@aiofc/entities';
+import { ExternalApproval } from '@aiofc/entities';
 import { InjectDataSource } from '@aiofc/nestjs-typeorm';
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { TrackedTypeormRepository as BaseRepository } from '@aiofc/typeorm-base';
+
 @Injectable()
-export class TenantsRepository extends BaseRepository<Tenant, 'id'> {
+export class ExternalApprovalsRepository extends BaseRepository<
+  ExternalApproval,
+  'id'
+> {
   constructor(
     @InjectDataSource()
-    readonly ds: DataSource
+    ds: DataSource
   ) {
-    super(Tenant, ds, 'id');
+    super(ExternalApproval, ds, 'id');
   }
 }

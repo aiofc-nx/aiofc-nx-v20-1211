@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Transactional } from 'typeorm-transactional';
 import { BaseEntityService } from '@aiofc/service-base';
 import { UserRepository } from '../../repositories/users/user.repository';
-import { FindOptionsWhere } from 'typeorm';
+import { FindOptionsRelations, FindOptionsWhere } from 'typeorm';
 
 @Injectable()
 export class UserService extends BaseEntityService<
@@ -28,7 +28,7 @@ export class UserService extends BaseEntityService<
    * 3. 使用事务执行查询操作
    */
   @Transactional()
-  async findOneByEmail(email: string, tenantId?: string) {
+  async findUserByEmail(email: string, tenantId?: string) {
     const where: FindOptionsWhere<UserProfile> = {
       email: email.toLowerCase().trim(),
       userTenantsAccounts: {
@@ -38,10 +38,9 @@ export class UserService extends BaseEntityService<
     return this.usersRepository.findOne(where);
   }
 
-  // async findByIdWithRelations(relations: string[], id: string) {
-  //   const user = await this.usersRepository.findByIdWithRelations(id);
-  //   return user;
-  // }
+  async findUserAndRoles(id: string) {
+    return this.usersRepository.findOneWithRelations(id);
+  }
 
   // @Transactional()
   // async updateUserStatus(id: string, status: UserProfileStatus) {

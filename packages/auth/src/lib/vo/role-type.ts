@@ -11,8 +11,13 @@
  * 2. 进行权限控制
  * 3. 在JWT令牌中携带角色信息
  */
+// export enum RoleType {
+//   ADMIN = 'ADMIN',
+//   REGULAR = 'REGULAR',
+//   NOT_USED = 'NOT_USED',
+// }
 export enum RoleType {
+  SUPER_ADMIN = 'SUPER_ADMIN',
   ADMIN = 'ADMIN',
-  REGULAR = 'REGULAR',
-  NOT_USED = 'NOT_USED',
+  REGULAR_USER = 'REGULAR_USER',
 }

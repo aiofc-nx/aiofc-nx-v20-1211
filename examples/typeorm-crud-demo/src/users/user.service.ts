@@ -1,10 +1,18 @@
-import { UserProfile, UserProfileStatus } from '@aiofc/entities';
+import {
+  ApprovalType,
+  ExternalApproval,
+  UserProfile,
+  UserProfileStatus,
+} from '@aiofc/entities';
 import { Injectable } from '@nestjs/common';
 import { Transactional } from 'typeorm-transactional';
 import { BaseEntityService } from '@aiofc/service-base';
 import { UserRepository } from './user.repository';
 import { TrackedTypeormBaseEntity } from '@aiofc/typeorm-base';
 import { FindOptionsWhere } from 'typeorm';
+import { BaseSignUpByEmailRequest } from './vo/sign-up.dto';
+import { ExternalApprovalService } from './external-approval.service';
+import { generateRandomNumber } from '@aiofc/utils';
 
 @Injectable()
 export class UserService extends BaseEntityService<
@@ -12,7 +20,10 @@ export class UserService extends BaseEntityService<
   'id',
   UserRepository
 > {
-  constructor(private readonly usersRepository: UserRepository) {
+  constructor(
+    private readonly usersRepository: UserRepository,
+    private readonly externalApprovalService: ExternalApprovalService
+  ) {
     super(usersRepository);
   }
 
@@ -51,48 +62,39 @@ export class UserService extends BaseEntityService<
    * @returns 返回查询到的用户信息或undefined
    */
   @Transactional()
-  async findOneByEmail(email: string) {
+  async findOneByEmail(email: string, tenantId?: string) {
     const where: FindOptionsWhere<UserProfile> = {
       email: email.toLowerCase().trim(),
-      // userTenantsAccounts: {
-      //   tenantId,
-      // },
+      userTenantsAccounts: {
+        tenantId,
+      },
     };
-    return this.usersRepository.findOne(where);
+    const user = await this.usersRepository.findOne(where);
+    if (!user) {
+      return undefined;
+    }
+    return user;
   }
 
-  //   @Transactional()
-  //   async createUserByEmail(request: UserProfileDto) {
-  //     /**
-  //      * 通过邮箱创建新用户
-  //      *
-  //      * @param request - 包含用户注册信息的请求对象
-  //      * @returns {Promise<{user: UserProfile}>} 返回创建的用户和外部审批记录
-  //      */
+  @Transactional()
+  async createUserByEmail(request: BaseSignUpByEmailRequest) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { repeatedPassword, ...userData } = request;
+    const user = await this.usersRepository.create({
+      ...userData,
+      status: UserProfileStatus.WAITING_FOR_EMAIL_APPROVAL,
+    } as Omit<UserProfile, 'id'> & Partial<Pick<UserProfile, 'id'>>);
 
-  //     /**
-  //      * 第一步: 处理用户数据
-  //      * - 从请求中解构出repeatedPassword,不需要保存到数据库
-  //      * - 使用剩余参数收集其他用户数据
-  //      */
-  //     // const { repeatedPassword, ...userData } = request;
+    const externalApproval = await this.externalApprovalService.create({
+      userId: user.id,
+      user,
+      code: generateRandomNumber(6).toString(),
+      approvalType: ApprovalType.REGISTRATION,
+    } as Omit<ExternalApproval, 'id'> & Partial<Pick<ExternalApproval, 'id'>>);
 
-  //     /**
-  //      * 第二步: 创建用户记录
-  //      * - 使用userData作为基础数据
-  //      * - 设置用户状态为等待邮箱验证
-  //      * - 使用类型断言确保类型安全:
-  //      *   - Omit<UserProfile, 'id'>: 创建时不需要id字段
-  //      *   - Partial<Pick<UserProfile, 'id'>>: id字段为可选
-  //      */
-  //     const user = await this.usersRepository.create({
-  //       ...request,
-  //       status: UserProfileStatus.WAITING_FOR_EMAIL_APPROVAL,
-  //     } as Omit<UserProfile, 'id'> & Partial<Pick<UserProfile, 'id'>>);
-
-  //     /**
-  //      * 返回创建的用户和外部审批记录
-  //      */
-  //     return user;
-  //   }
+    /**
+     * 返回创建的用户和外部审批记录
+     */
+    return { user, externalApproval };
+  }
 }

@@ -29,7 +29,7 @@ export abstract class TenantTrackedTypeormRepository<
   AUTO_GENERATED_FIELDS extends keyof ENTITY =
     | keyof TenantTrackedTypeormBaseEntity
     | ID
-    | 'tenantId',
+    | 'tenantId'
 > extends TrackedTypeormRepository<
   ENTITY,
   ID,
@@ -47,7 +47,7 @@ export abstract class TenantTrackedTypeormRepository<
     et: ObjectType<ENTITY>,
     dataSource: DataSource,
     idFieldName: ID,
-    protected clsService: ClsService<TenantClsStore>,
+    protected clsService: ClsService<TenantClsStore>
   ) {
     super(et, dataSource, idFieldName);
   }
@@ -70,7 +70,7 @@ export abstract class TenantTrackedTypeormRepository<
    * @throws GeneralInternalServerException 当租户ID未设置时
    */
   protected override presetWhereOptions(
-    criteria: FindOptionsWhere<ENTITY> | Array<FindOptionsWhere<ENTITY>>,
+    criteria: FindOptionsWhere<ENTITY> | Array<FindOptionsWhere<ENTITY>>
   ): FindOptionsWhere<ENTITY> | Array<FindOptionsWhere<ENTITY>> {
     const options = super.presetWhereOptions(criteria);
 
@@ -80,10 +80,19 @@ export abstract class TenantTrackedTypeormRepository<
 
     const tenantId = clsStore?.tenantId;
 
+    // 检查租户上下文和租户ID是否存在
+    // 如果租户上下文或租户ID不存在,则抛出内部服务器错误
+    // 可能的原因:
+    // 1. 请求中未设置租户ID
+    // 2. 在请求作用域之外使用仓库
+    // 3. 有人试图绕过租户验证
     if (!clsStore || !tenantId) {
+      // throw new GeneralInternalServerException(
+      //   `TenantId is not set for the required tenant id repository, it's either not set in the request
+      //   or you are trying to use the repository outside of the request scope or someone trying to cheat`
+      // );
       throw new GeneralInternalServerException(
-        `TenantId is not set for the required tenant id repository, it's either not set in the request
-        or you are trying to use the repository outside of the request scope or someone trying to cheat`,
+        `请求中未设置租户ID, 或者你试图在请求作用域之外使用仓库, 或者有人试图绕过租户验证`
       );
     }
 

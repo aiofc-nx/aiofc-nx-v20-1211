@@ -1,6 +1,7 @@
 import { Controller, Post, Body, Get } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserProfileDto } from './vo/findUser.dto';
+import { BaseSignUpByEmailRequest } from './vo/sign-up.dto';
 // import { BaseSignUpByEmailRequest } from './vo/sign-up.dto';
 
 @Controller('user')
@@ -14,10 +15,10 @@ export class UsersController {
     // return 'hello createUser';
   }
 
-  // @Post('createUserByEmail')
-  // async createUserByEmail(@Body() request: BaseSignUpByEmailRequest) {
-  //   return this.usersService.createUserByEmail(request);
-  // }
+  @Post('createUserByEmail')
+  async createUserByEmail(@Body() request: BaseSignUpByEmailRequest) {
+    return this.usersService.createUserByEmail(request);
+  }
 
   @Post('findOneByEmail')
   async findOneByEmail(@Body() request: UserProfileDto) {

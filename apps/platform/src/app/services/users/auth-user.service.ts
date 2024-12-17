@@ -55,7 +55,7 @@ export default class AuthUserService extends AbstractAuthUserService {
    */
   @Transactional()
   override async findUserByEmail(email: string): Promise<Maybe<UserProfile>> {
-    const user = await this.userService.findOneByEmail(email);
+    const user = await this.userService.findUserByEmail(email);
     if (!user) {
       return undefined;
     }

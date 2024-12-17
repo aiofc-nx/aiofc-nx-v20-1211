@@ -4,7 +4,10 @@ import { TenantsRepository } from '../../repositories/tenants/tenants.repository
 import { BaseEntityService } from '@aiofc/service-base';
 import { Tenant, TenantStatus, UserProfile } from '@aiofc/entities';
 import { ConflictEntityCreationException } from '@aiofc/exceptions';
-import { TenantTrackedTypeormBaseEntity } from '@aiofc/typeorm-base';
+import {
+  TenantTrackedTypeormBaseEntity,
+  TrackedTypeormBaseEntity,
+} from '@aiofc/typeorm-base';
 import { FindOptionsWhere } from 'typeorm';
 
 /**
@@ -77,7 +80,7 @@ export class TenantService extends BaseEntityService<
       tenantFriendlyIdentifier,
       tenantStatus: TenantStatus.ACTIVE,
       owner,
-    } as Omit<Tenant, 'id' | keyof TenantTrackedTypeormBaseEntity> & Partial<Pick<Tenant, 'id'>>);
+    } as Omit<Tenant, 'id' | keyof TrackedTypeormBaseEntity> & Partial<Pick<Tenant, 'id'>>);
 
     // 记录创建日志
     this.logger.log(`Tenant ${tenantName} created with id ${tenant.id}`);

@@ -18,7 +18,7 @@ import {
 import { TenantService } from '../../tenants/tenant.service';
 import { UserRoleService } from '../../roles/user-role.service';
 import { UserTenantAccountService } from '../../users/user-tenant-account.service';
-import { identity } from 'packages/config/src/core/utils/identity.util';
+import { AbstractTokenBuilderService } from '@aiofc/auth';
 
 @Injectable()
 export class TenantSignupService extends AbstractSignupService<SignUpByEmailWithTenantCreationRequest> {
@@ -29,7 +29,12 @@ export class TenantSignupService extends AbstractSignupService<SignUpByEmailWith
     private readonly authUserService: AbstractAuthUserService,
     private readonly userService: UserService,
     private readonly userTenantAccountService: UserTenantAccountService,
-    private readonly roleService: UserRoleService // private readonly tokenBuilderService: AbstractTokenBuilderService< //   UserProfile, //   AccessTokenPayload, //   RefreshTokenPayload // >
+    private readonly roleService: UserRoleService,
+    private readonly tokenBuilderService: AbstractTokenBuilderService<
+      UserProfile,
+      AccessTokenPayload,
+      RefreshTokenPayload
+    >
   ) {
     super();
   }
@@ -168,10 +173,7 @@ export class TenantSignupService extends AbstractSignupService<SignUpByEmailWith
       userStatus: UserAccountStatus.ACTIVE,
     } as Omit<UserTenantAccount, 'id'> & Partial<Pick<UserTenantAccount, 'id'>>);
     // 获取完整的用户信息，需要显式加载租户账户和角色关系
-    const userUpdated = await this.userService.findByIdWithRelations(
-      ['userTenantsAccounts', 'userTenantsAccounts.roles'],
-      userProfile.id
-    );
+    const userUpdated = await this.userService.findUserAndRoles(userProfile.id);
 
     return {
       jwtPayload: this.tokenBuilderService.buildTokensPayload(userUpdated),
