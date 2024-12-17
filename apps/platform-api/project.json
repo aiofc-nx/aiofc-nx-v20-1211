@@ -1,24 +1,26 @@
 {
-  "name": "platform",
+  "name": "platform-api",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/platform/src",
+  "sourceRoot": "apps/platform-api/src",
   "projectType": "application",
   "tags": [],
   "targets": {
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["build"],
+      "dependsOn": [
+        "build"
+      ],
       "options": {
-        "buildTarget": "platform:build",
+        "buildTarget": "platform-api:build",
         "runBuildTargetDependencies": false
       },
       "configurations": {
         "development": {
-          "buildTarget": "platform:build:development"
+          "buildTarget": "platform-api:build:development"
         },
         "production": {
-          "buildTarget": "platform:build:production"
+          "buildTarget": "platform-api:build:production"
         }
       }
     }
