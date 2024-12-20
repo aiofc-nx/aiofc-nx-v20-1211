@@ -7,6 +7,12 @@
     "bierner.markdown-mermaid",
     "vstirbu.vscode-mermaid-preview",
     "shd101wyy.markdown-preview-enhanced",
-    "visualstudioexptteam.intellicode-api-usage-examples"
+    "visualstudioexptteam.intellicode-api-usage-examples",
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "prisma.prisma",
+    "qwtel.sqlite-viewer",
+    "yoavbls.pretty-ts-errors"
   ]
 }
